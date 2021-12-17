@@ -1,0 +1,65 @@
+<html>
+<head> 
+	<meta charset="UTF-8"> 
+	<title>CLINICAS AREQUIPA FRANZ CHOQUE</title>
+	<link rel="stylesheet" href="css/leaflet.css" />
+	
+	<style> 
+ 
+ 	 body {
+            padding:5;
+            margin:9;
+                                 }
+        html, 
+        body, #map {
+            height: 98.5%;
+            width: 99.5%;
+            box-shadow:  3px 3px 3px 3px 
+           
+        }
+        .leaflet-popup-content-wrapper {
+    width: 0px;
+	height: 0px;
+		}
+	
+	 	</style> 
+</head>  
+	<body>
+	<script src="js/leaflet.js"></script>
+	<script src="js/leaflet.wms.js"></script>
+ 
+	<div id ="map"> </div> 
+	<script>
+ 
+	//*****************PROPIEDADES DE MAPA GENERAL**********************//
+	var map = L.map(
+		'map',
+		{
+			zoomControl:true,
+			attributionControl: false
+		}).setView([-16.398035, -71.536693], 18);
+		
+	//*****************MAPA BASE*******************************//
+	// OPEN STREET MAP
+
+	var osm = new L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+		).addTo(map);
+
+L.control.scale().addTo(map);
+L.marker([-16.398035, -71.536693], {draggable: true}).addTo(map);
+
+		
+	//*****************LISTA DE SERVICIOS*******************************//
+		
+	var wmsGeneral = L.tileLayer.wms("http://localhost:8080/geoserver/web/?", {
+	   layers: "proyecto_webgis: clinicas_arequipa1,proyecto_webgis: provincias_arequipa,proyecto_webgis: distritos_arequipa",
+	   //gisweb:Tacna
+	   format: 'image/png',
+	   transparent: true,
+	   version: '1.1.1',
+	   attribution: ""
+	}).addTo(map);
+	
+	</script>
+	</body> 
+</html>
